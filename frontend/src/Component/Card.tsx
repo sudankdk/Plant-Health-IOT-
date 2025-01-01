@@ -1,5 +1,5 @@
 import React from "react";
-import { FaWater } from "react-icons/fa"; // Importing a water icon
+import { FaWater } from "react-icons/fa"; 
 
 const Card = () => {
   return (

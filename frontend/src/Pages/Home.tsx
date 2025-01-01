@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { IoIosBatteryCharging } from "react-icons/io";
 import { Chart } from "../Component/Chart";
 import { Environment, weatherData } from "../Type/Environmental";
 import Card from "../Component/Card";
@@ -61,19 +62,22 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 ">
       {/* Header Section */}
-      <div className="bg-blue-500 text-white p-6 rounded-lg shadow-md mb-6">
-        <h2 className="text-2xl font-bold mb-2">Plant Hydration</h2>
-        <p className="text-lg">
-          Battery: <span className="font-semibold">85%</span>
+      <div className="bg-[#16423C] text-white p-3  shadow-md mb-6">
+        <h2 className="text-2xl font-bold mb-2 flex justify-center font-sans">
+          Plant Hydration
+        </h2>
+        <p className="text-lg flex flex-row-reverse items-center gap-4">
+          <IoIosBatteryCharging />
+          <span className="font-semibold">85%</span>
         </p>
-        {/* Displaying the weather data */}
+
         {currentWeather ? (
           <>
-            <p className="text-lg">
-              Current Temperature: {currentWeather.current.temp_c}°C (
-              {currentWeather.current.temp_f}°F)
+            <p className="text-lg flex flex-row-reverse">
+              {currentWeather.current.temp_c}°C ({currentWeather.current.temp_f}
+              °F)
             </p>
             <p className="text-lg">
               Condition: {currentWeather.current.condition.text}
