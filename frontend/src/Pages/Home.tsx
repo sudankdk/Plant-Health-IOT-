@@ -108,7 +108,7 @@ const Home = () => {
 
       {/* Chart Section */}
       <section className="bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-xl font-bold mb-4 text-center">
+        <h2 className="text-xl  font-bold mb-4 text-center">
           Environmental Data
         </h2>
         <Chart data={dummyData} />
