@@ -5,6 +5,7 @@ import { Environment, weatherData } from "../Type/Environmental";
 import Card from "../Component/Card";
 import { Weather } from "../endpoints/api";
 import { willItRain } from "../logic/Rain";
+import plantHydraLogo from "../assets/Plant Hydra.png";
 
 const Home = () => {
   const [currentWeather, setCurrentWeather] = useState<weatherData | null>(
@@ -13,8 +14,12 @@ const Home = () => {
   const [rain, setRain] = useState<string>("");
 
   const weatherapi = async () => {
-    const data = await Weather();
-    setCurrentWeather(data);
+    try {
+      const data = await Weather();
+      setCurrentWeather(data);
+    } catch (error) {
+      console.error("Failed to fetch weather data:", error);
+    }
   };
 
   useEffect(() => {
@@ -62,47 +67,52 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 ">
+    <div className="min-h-screen bg-gray-50">
       {/* Header Section */}
-      <div className="bg-[#16423C] text-white p-3  shadow-md mb-6">
-        <h2 className="text-2xl font-bold mb-2 flex justify-center font-sans">
-          Plant Hydration
-        </h2>
-        <p className="text-lg flex flex-row-reverse items-center gap-4">
-          <IoIosBatteryCharging />
-          <span className="font-semibold">85%</span>
-        </p>
+      <header className="bg-[#16423C] text-white p-4 shadow-md mb-6 flex items-center justify-between">
+        {/* Logo Section */}
+        <div className="flex items-center">
+          <img
+            src={plantHydraLogo}
+            alt="Plant Hydra Logo"
+            className="p-2 rounded-full h-20 w-20 shadow-lg border-2 border-white"
+          />
+          <h2 className="text-2xl font-bold ml-4">Plant Hydration</h2>
+        </div>
 
-        {currentWeather ? (
-          <>
-            <p className="text-lg flex flex-row-reverse">
-              {currentWeather.current.temp_c}°C ({currentWeather.current.temp_f}
-              °F)
-            </p>
-            <p className="text-lg">
-              Condition: {currentWeather.current.condition.text}
-            </p>
-          </>
-        ) : (
-          <p className="text-lg">Loading...</p>
-        )}
-        <p className="text-lg">
-          Rain Probability: <span className="font-semibold">{rain}</span>
-        </p>
-      </div>
+        {/* Info Section */}
+        <div className="text-right">
+          <p className="text-lg flex items-center justify-end gap-2">
+            <IoIosBatteryCharging />
+            <span className="font-semibold">85%</span>
+          </p>
+          <p className="text-lg">
+            {currentWeather ? (
+              <>
+                {currentWeather.current.temp_c}°C (
+                {currentWeather.current.temp_f}
+                °F)
+              </>
+            ) : (
+              <span className="animate-pulse">Loading...</span>
+            )}
+          </p>
+          {rain && <p className="text-lg font-semibold">{rain}</p>}
+        </div>
+      </header>
 
       {/* Card Section */}
-      <div className="mb-6">
+      <section className="mb-6">
         <Card />
-      </div>
+      </section>
 
       {/* Chart Section */}
-      <div className="bg-white p-6 rounded-lg shadow-md">
+      <section className="bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-xl font-bold mb-4 text-center">
           Environmental Data
         </h2>
         <Chart data={dummyData} />
-      </div>
+      </section>
     </div>
   );
 };
