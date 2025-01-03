@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-vnz)#o4#6t_en5#p14f(4$&23n*9^7-8140iwtwa&2=2fx0(ri
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://plant-health-iot-1.onrender.com']
+ALLOWED_HOSTS = ['plant-health-iot-1.onrender.com']
 
 
 
