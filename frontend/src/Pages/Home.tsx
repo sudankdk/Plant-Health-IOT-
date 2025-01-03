@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosBatteryCharging } from "react-icons/io";
 import { Chart } from "../Component/Chart";
 import { Environment, weatherData } from "../Type/Environmental";
