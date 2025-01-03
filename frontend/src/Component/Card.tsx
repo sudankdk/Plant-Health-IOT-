@@ -1,15 +1,23 @@
-import React from "react";
-import { FaWater } from "react-icons/fa"; 
-
+import { useEffect, useState } from "react";
+import { FaWater } from "react-icons/fa";
+import { MoistureLevel } from "../logic/Moisture";
 const Card = () => {
+  const [moisture, setMoisture] = useState<string>("");
+  const b: number = 20;
+  useEffect(() => {
+    setMoisture(MoistureLevel(b));
+  }, []);
+  const a = b / 100;
   return (
     <div className="p-6 bg-white rounded-lg shadow-md max-w-sm mx-auto">
       <h2 className="text-2xl font-bold text-gray-800 mb-2 flex items-center">
         Vegetable Garden
         <FaWater className="ml-2 text-blue-500" />
       </h2>
-      <p className="text-gray-600 mb-1">Soil Moisture:</p>
-      <p className="text-sm text-green-600 font-semibold">Low, High,Hydrated</p>
+      <progress className="" value={a}>
+        <p className="text-gray-600 mb-1">Soil moisture</p>
+      </progress>
+      <p className="text-sm text-green-600 font-semibold">{moisture}</p>
       <p className="text-gray-600 mt-4">
         Last Water Time:{" "}
         <span className="text-blue-500 font-medium">Water time</span>
