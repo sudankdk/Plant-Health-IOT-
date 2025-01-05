@@ -10,11 +10,9 @@ from django.http import JsonResponse
 
 class SensorDataView(APIView):
     def post(self, request):
-        # DRF automatically parses JSON data into a dictionary
         data = request.data
 
-        # Print data for debugging
-        print(data)
+       
 
         serializer = sensorDataSerializer(data=data)
         if serializer.is_valid():
@@ -38,3 +36,5 @@ class SensorDataView(APIView):
         data = SensorData.objects.all().order_by('-timestamp')[:10]
         serializer = sensorDataSerializer(data, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+

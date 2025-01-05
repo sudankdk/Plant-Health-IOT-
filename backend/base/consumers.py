@@ -12,3 +12,16 @@ class Sensordataconsumers(AsyncWebsocketConsumer):
     async def send_sensor_data(self,event):
         data=event['data']
         await self.send(text_data=json.dumps(data))
+
+
+class HydrationDataConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        await self.channel_layer.group_add("Hydratation_data",self.channel_name)
+        await self.accept()
+        
+    async def disconnect(self,close_code):
+        await self.channel_layer.group_discard("Hydratation_data",self.channel_name)
+            
+    async def send_hydration_data(self,event):
+        data=event['data']
+        await self.send(text_data=json.dumps(data))
