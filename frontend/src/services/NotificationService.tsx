@@ -1,20 +1,21 @@
-import { useEffect } from "react";
-import Push from "push.js";
+import React, { useEffect } from 'react';
+import Push from 'push.js';
 
-const NotificationComponent = () => {
+interface NotificationData {
+  message: string;
+}
+
+const NotificationComponent: React.FC = () => {
   useEffect(() => {
-    const ws = new WebSocket("ws://127.0.0.1:8000/ws/sensors/notification/");
+    const ws = new WebSocket('ws://127.0.0.1:8000/ws/sensors/notification/');
 
-    ws.onmessage = async (event) => {
-      const data = JSON.parse(event.data);
-
-      if (Push.Permission === "granted") {
-        Push.create("Plant Alert", {
-          body: data.message,
-          timeout: 5000, // Notification will close after 5 seconds
-          onClick: () => window.focus(), // Focus on the window when clicked
-        });
-      }
+    ws.onmessage = (event) => {
+      const data: NotificationData = JSON.parse(event.data);
+      Push.create('Plant Alert', {
+        body: data.message,
+        timeout: 5000,
+        onClick: () => window.focus(),
+      });
     };
 
     return () => ws.close();
