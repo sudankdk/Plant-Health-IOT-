@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-vnz)#o4#6t_en5#p14f(4$&23n*9^7-8140iwtwa&2=2fx0(ri
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['plant-health-iot-1.onrender.com']
+ALLOWED_HOSTS = ['plant-health-iot-1.onrender.com','127.0.0.1']
 
 
 
@@ -80,7 +80,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": ["redis://red-cts0bgq3esus73dkuadg:6379"],
+            "hosts": [("localhost", 6379)],#["redis://red-cts0bgq3esus73dkuadg:6379"],
         },
     },
 }
@@ -138,4 +138,11 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
+CORS_ALLOWED_ORIGINS = [
+    "https://plant-health-rjhbu9peg-sudankdks-projects.vercel.app"
+]
 
+# Alternative if you need more flexible origin matching
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://plant-health-.*\.vercel\.app$"
+]
