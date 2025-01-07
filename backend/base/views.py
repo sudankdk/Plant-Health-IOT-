@@ -41,12 +41,12 @@ class SensorDataView(APIView):
                 "sensor_data",  
                 {
                     "type": "send_sensor_data",
-                    "data": sensor_data.data
+                    "data": serializer.data
                 }
             )
 
             # Check if moisture level is low and send notification if needed
-            if sensor_data.soil_moisture <= 30:
+            if sensor_data.soilmoisture <= 30:
                 message = "Please water your plant"
                 try:
                     # Send notification to the WebSocket group
@@ -72,12 +72,12 @@ class SensorDataView(APIView):
                     )
                     return Response(error.response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-            # Return success response
+            # # Return success response
             return Response({
                 "message": "Data received successfully",
-                "notification_sent": sensor_data.soil_moisture <= 30,
+                "notification_sent": sensor_data.soilmoisture <= 30,
                 "data": {
-                    "moisture_level": sensor_data.soil_moisture,
+                    "moisture_level": sensor_data.soilmoisture,
                     "timestamp": sensor_data.timestamp.isoformat()
                 }
             }, status=status.HTTP_201_CREATED)

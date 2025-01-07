@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./Pages/Home";
-import NotificationComponent from "./services/NotificationService";
+// import NotificationComponent from "./services/NotificationService";
 
 function App() {
   return (
