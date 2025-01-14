@@ -16,7 +16,7 @@ export const Weather = async () => {
 export const Hydrate = async () => {
   try {
     // Send POST request to the API
-    const API_URL = "https://your-django-api-endpoint.com/api/hydrate/";
+    const API_URL = "https://plant-health-iot-1.onrender.com/api/hydrate/";
     const response = await axios.post(API_URL);
 
     // Return the API response data
