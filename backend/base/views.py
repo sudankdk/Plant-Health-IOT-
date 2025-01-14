@@ -90,70 +90,16 @@ class SensorDataView(APIView):
         serializer = sensorDataSerializer(data, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-# @api_view(['POST'])
-# def notification_push(request):
-#     try:
-#         sensor_data = SensorData.objects.latest('timestamp')
-        
-#         if sensor_data.soil_moisture <= 30:
-#             message = "Please water your plant"
-#             channel_layer = get_channel_layer()
-            
-#             try:
-#                 async_to_sync(channel_layer.group_send)(
-#                     "Notification_data",
-#                     {
-#                         "type": "send_notification",
-#                         "data": message
-#                     }
-#                 )
-#             except ConnectionError:
-#                 error = ApiError(
-#                     "CHANNEL_CONNECTION_ERROR",
-#                     "Failed to connect to notification service",
-#                     {"service": "channels", "group": "Notification_data"}
-#                 )
-#                 return Response(error.response, status=status.HTTP_503_SERVICE_UNAVAILABLE)
-#             except Exception as e:
-#                 error = ApiError(
-#                     "NOTIFICATION_SEND_ERROR",
-#                     "Failed to send notification",
-#                     {"error_type": type(e).__name__, "error_details": str(e)}
-#                 )
-#                 return Response(error.response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-#             return Response({
-#                 "success": True,
-#                 "message": "Low hydration notification sent",
-#                 "data": {
-#                     "moisture_level": sensor_data.soil_moisture,
-#                     "timestamp": sensor_data.timestamp.isoformat(),
-#                     "notification_sent": True
-#                 }
-#             }, status=status.HTTP_202_ACCEPTED)
-        
-#         return Response({
-#             "success": True,
-#             "message": "Soil moisture level normal",
-#             "data": {
-#                 "moisture_level": sensor_data.soil_moisture,
-#                 "timestamp": sensor_data.timestamp.isoformat(),
-#                 "notification_sent": False
-#             }
-#         }, status=status.HTTP_200_OK)
+motor_state={
+    "run_motor":False
+}
 
-#     except ObjectDoesNotExist:
-#         error = ApiError(
-#             "SENSOR_DATA_NOT_FOUND",
-#             "No sensor data available",
-#             {"last_checked": datetime.now().isoformat()}
-#         )
-#         return Response(error.response, status=status.HTTP_404_NOT_FOUND)
-#     except Exception as e:
-#         error = ApiError(
-#             "INTERNAL_SERVER_ERROR",
-#             "An unexpected error occurred",
-#             {"error_type": type(e).__name__, "error_details": str(e)}
-#         )
-#         return Response(error.response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+@api_view(['POST'])
+def hydrate(request):
+    try:
+        motor_state["run_motor"] = True
+        return Response({"status": "success", "message": "Motor turned ON for hydration."})
+    except:
+        return Response({"error":"error in hydrating"})
         
