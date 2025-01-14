@@ -139,7 +139,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 CORS_ALLOWED_ORIGINS = [
-    "https://plant-health-rjhbu9peg-sudankdks-projects.vercel.app"
+    "https://plant-health-rjhbu9peg-sudankdks-projects.vercel.app",
+    "https://plant-health-iot.vercel.app"
 ]
 
 # Alternative if you need more flexible origin matching
