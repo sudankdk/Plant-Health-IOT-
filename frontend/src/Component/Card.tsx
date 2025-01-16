@@ -15,7 +15,9 @@ const Card = () => {
 
   useEffect(() => {
     // WebSocket connection to get real-time data
-    const ws = new WebSocket("wss://plant-health-iot-1.onrender.com:443/ws/sensors/");
+    const ws = new WebSocket(
+      "wss://plant-health-iot-1.onrender.com:443/ws/sensors/"
+    );
 
     ws.onopen = () => {
       console.log("WebSocket connected");
@@ -25,6 +27,7 @@ const Card = () => {
     ws.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
+        console.log(data);
         if (data && data[0]) {
           const sensorData = data[0];
           setTemperature(sensorData.temperature);
@@ -61,7 +64,7 @@ const Card = () => {
         console.log("Hydration started");
         setLastWaterTime(new Date().toLocaleTimeString()); // Update the last water time
         setIsHydrating(true); // Start the hydration process
-        
+
         // After 20 seconds, set hydration state back to false
         setTimeout(() => {
           setIsHydrating(false);
@@ -80,18 +83,35 @@ const Card = () => {
         Vegetable Garden
         <FaWater className="ml-2 text-blue-500" />
       </h2>
-      <progress className="w-full mb-2" value={soilMoisture ?? 0} max={100}></progress>
+      <progress
+        className="w-full mb-2"
+        value={soilMoisture ?? 0}
+        max={100}
+      ></progress>
       <p className="text-gray-600 mb-1">Soil moisture</p>
       <p className="text-sm text-green-600 font-semibold">{moisture}</p>
-      
+
       {/* Display environment data */}
       <div className="mt-4 text-gray-600">
-        <p>Temperature: <span className="text-blue-500">{temperature ?? 'Loading...'}</span> °C</p>
-        <p>Humidity: <span className="text-blue-500">{humidity ?? 'Loading...'}</span> %</p>
-        <p>Last Water Time: <span className="text-blue-500">{lastWaterTime}</span></p>
-        <p>Timestamp: <span className="text-blue-500">{timestamp ?? 'Loading...'}</span></p>
+        <p>
+          Temperature:{" "}
+          <span className="text-blue-500">{temperature ?? "Loading..."}</span>{" "}
+          °C
+        </p>
+        <p>
+          Humidity:{" "}
+          <span className="text-blue-500">{humidity ?? "Loading..."}</span> %
+        </p>
+        <p>
+          Last Water Time:{" "}
+          <span className="text-blue-500">{lastWaterTime}</span>
+        </p>
+        <p>
+          Timestamp:{" "}
+          <span className="text-blue-500">{timestamp ?? "Loading..."}</span>
+        </p>
       </div>
-      
+
       <button
         onClick={handle_hydrate}
         className={`mt-6 px-4 py-2 ${
