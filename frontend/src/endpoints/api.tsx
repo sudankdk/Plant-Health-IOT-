@@ -29,3 +29,13 @@ export const Hydrate = async () => {
     throw new Error("Failed to send hydration request. Please try again.");
   }
 };
+
+export const Data = async () => {
+  try {
+    const api = "https://plant-health-iot-1.onrender.com/api/sensors/";
+    const response = await axios.get(api);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
