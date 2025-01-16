@@ -90,18 +90,34 @@ class SensorDataView(APIView):
         serializer = sensorDataSerializer(data, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+import threading
 
-motor_state={
-    "run_motor":False
+motor_state = {
+    "run_motor": False
 }
+
+# Function to reset the motor state after 20 seconds
+def reset_motor_state():
+    global motor_state
+    threading.Timer(20.0, reset_motor).start()
+
+def reset_motor():
+    global motor_state
+    motor_state["run_motor"] = False
+
 @api_view(['GET', 'POST'])
 def hydrate(request):
+    global motor_state  # To modify the global state
+    
     if request.method == 'POST':
         try:
-            motor_state["run_motor"] = True
+            motor_state["run_motor"] = True  # Turn motor ON
+            # Start a timer to reset the motor state after 20 seconds
+            reset_motor_state()
             return Response({"status": "success", "message": "Motor turned ON for hydration."})
-        except:
-            return Response({"error":"error in hydrating"})
+        except Exception as e:
+            return Response({"error": f"Error in hydrating: {str(e)}"})
     
     elif request.method == 'GET':
+        # Return the current motor state
         return Response({"run_motor": motor_state["run_motor"]})
