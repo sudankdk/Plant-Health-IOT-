@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { IoIosBatteryCharging } from "react-icons/io";
-import { Chart } from "../Component/Chart";
-import { Environment, weatherData } from "../Type/Environmental";
+import {  weatherData } from "../Type/Environmental";
 import Card from "../Component/Card";
 import { Weather } from "../endpoints/api";
 import { willItRain } from "../logic/Rain";
 import plantHydraLogo from "../assets/Plant Hydra.png";
+import EnvironmentChart from "../Component/EnvironmentChart";
 
 const Home = () => {
   const [currentWeather, setCurrentWeather] = useState<weatherData | null>(
@@ -37,35 +37,7 @@ const Home = () => {
     }
   }, [currentWeather]);
 
-  const dummyData: Environment[] = [
-    {
-      temperature: 22.5,
-      humidity: 60,
-      timestamp: new Date(Date.now() - 1000000),
-    },
-    {
-      temperature: 23.1,
-      humidity: 58,
-      timestamp: new Date(Date.now() - 800000),
-    },
-    {
-      temperature: 24.0,
-      humidity: 57,
-      timestamp: new Date(Date.now() - 600000),
-    },
-    {
-      temperature: 25.3,
-      humidity: 56,
-      timestamp: new Date(Date.now() - 400000),
-    },
-    {
-      temperature: 26.1,
-      humidity: 55,
-      timestamp: new Date(Date.now() - 200000),
-    },
-    { temperature: 27.0, humidity: 54, timestamp: new Date(Date.now()) },
-  ];
-
+  
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header Section */}
@@ -111,7 +83,8 @@ const Home = () => {
         <h2 className="text-xl  font-bold mb-4 text-center">
           Environmental Data
         </h2>
-        <Chart data={dummyData} />
+        {/* <Chart data={dummyData} /> */}
+        <EnvironmentChart />
       </section>
     </div>
   );

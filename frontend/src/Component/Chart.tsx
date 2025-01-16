@@ -22,7 +22,6 @@ ChartJS.register(
 );
 
 import { Environment } from "../Type/Environmental";
-import EnvironmentChart from "./EnvironmentChart";
 
 interface ChartEnvironment {
   data: Environment[];
@@ -76,7 +75,7 @@ export function Chart({ data }: ChartEnvironment) {
   return (
     <div className="p-6 bg-white shadow-md rounded-md max-w-4xl mx-auto">
       <h2 className="text-xl font-bold mb-4 text-center">Weather Data</h2>
-      <EnvironmentChart />
+      <Line options={options} data={chartData} />
     </div>
   );
 }

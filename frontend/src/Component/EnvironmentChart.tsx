@@ -3,6 +3,32 @@ import { Data } from "../endpoints/api"; // Your Data API endpoint
 import { Chart } from "./Chart"; // Import the Chart component
 import { Environment } from "../Type/Environmental"; // Assuming you have an Environment type
 
+// import {
+//     Chart as ChartJS,
+//     CategoryScale,
+//     LinearScale,
+//     Tooltip,
+//     Legend,
+//     Title,
+//     LineElement,
+//     PointElement,
+//   } from "chart.js";
+
+
+  
+// import { Line } from "react-chartjs-2";
+
+// ChartJS.register(
+//   CategoryScale,
+//   LinearScale,
+//   PointElement,
+//   LineElement,
+//   Title,
+//   Tooltip,
+//   Legend
+// );
+
+
 const EnvironmentChart = () => {
   const [environmentData, setEnvironmentData] = useState<Environment[]>([]);
 
