@@ -94,12 +94,14 @@ class SensorDataView(APIView):
 motor_state={
     "run_motor":False
 }
-
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 def hydrate(request):
-    try:
-        motor_state["run_motor"] = True
-        return Response({"status": "success", "message": "Motor turned ON for hydration."})
-    except:
-        return Response({"error":"error in hydrating"})
-        
+    if request.method == 'POST':
+        try:
+            motor_state["run_motor"] = True
+            return Response({"status": "success", "message": "Motor turned ON for hydration."})
+        except:
+            return Response({"error":"error in hydrating"})
+    
+    elif request.method == 'GET':
+        return Response({"run_motor": motor_state["run_motor"]})
