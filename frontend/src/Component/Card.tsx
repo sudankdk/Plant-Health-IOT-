@@ -28,15 +28,16 @@ const Card = () => {
       try {
         const data = JSON.parse(event.data);
         console.log(data);
-        if (data && data[0]) {
-          const sensorData = data[0];
-          setTemperature(sensorData.temperature);
-          setHumidity(sensorData.humidity);
-          setSoilMoisture(sensorData.soilmoisture);
-          setTimestamp(sensorData.timestamp);
+        console.log(data[0])
+        if (data ) {
+          // const sensorData = data[0];
+          setTemperature(data.temperature);
+          setHumidity(data.humidity);
+          setSoilMoisture(data.soilmoisture);
+          setTimestamp(data.timestamp);
 
           // Update the moisture level using the soilmoisture value
-          setMoisture(MoistureLevel(sensorData.soilmoisture));
+          setMoisture(MoistureLevel(data.soilmoisture));
         }
       } catch (error) {
         console.error("Error parsing WebSocket data:", error);
